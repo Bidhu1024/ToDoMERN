@@ -2,9 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const connectDB = require('./config/database');
-
-
-configDotenv.config()
+const dotenv = require('dotenv')
+const Todo = require('./models/Todo.js')
+dotenv.config()
 
 const app = express();
 
@@ -13,6 +13,21 @@ const port = 5000;
 
 //connect to mongoDB
 connectDB
+
+//api
+
+app.get('/add-sample', async (req, res) => {
+    try {
+        const sampleTodo = new Todo({
+            title: 'Learn MERN Stack',
+        });
+
+        await sampleTodo.save(); // Save to the database
+        res.status(201).send('Sample TODO created successfully!');
+    } catch (error) {
+        res.status(500).send('Error creating TODO: ' + error.message);
+    }
+});
 
 app.listen(port,()=>{
     console.log(`Server is running at ${port}`)
