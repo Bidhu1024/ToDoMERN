@@ -2,9 +2,9 @@ import TodoMain from './components/TodoMain';
 function App() {
 
   return (
-  <>
+  
   <TodoMain />
-  </>
+
   )
 }
 
