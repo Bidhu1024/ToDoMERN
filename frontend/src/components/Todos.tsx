@@ -7,7 +7,7 @@ const Todos = () => {
     const fetchTodos = async()=>{
         try{
             const response = await API.get('/todos')
-            setTodos(response)
+            setTodos(response.data)
         }catch(err){
             console.log(err)
         }
