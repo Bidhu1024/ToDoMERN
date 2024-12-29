@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import "../App.css";
 import Todos from "./Todos";
-import { createTodo } from "./useCreateTodo";
+import { useCreateTodo } from "./useCreateTodo";
 const TodoMain = () => {
   const [text, setText] = useState<string>("");
+  const { createTodo, loading, error } = useCreateTodo();
   const handleCreateTodo = async () => {
     if (!text.trim()) {
       alert("Please enter a TODO.");
@@ -11,9 +12,7 @@ const TodoMain = () => {
     }
 
     try {
-      
-      const newTodo = await createTodo({ title: text, completed: false });
-      console.log("TODO Created:", newTodo);
+      await createTodo({ title: text, completed: false });
       setText("");
     } catch (error) {
       console.error("Error creating TODO:", error);
@@ -35,7 +34,7 @@ const TodoMain = () => {
           />
           <div className="todo-button">
             {" "}
-            <button onClick={handleCreateTodo}>Create</button>
+            <button onClick={handleCreateTodo}>{loading ? "Creating..." : "Create Todo"}</button>
           </div>
         </div>
       </div>
